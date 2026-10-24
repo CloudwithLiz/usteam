@@ -103,11 +103,11 @@ pipeline {
                                 sh '''
                                 aws ssm send-command \
                                   --instance-ids $BASTION_ID \
-                                  --region eu-west-3 \
+                                  --region eu-west-2 \
                                   --document-name "AWS-RunShellScript" \
                                   --comment "Deploy via Bastion to Ansible" \
                                   --parameters 'commands=[
-                                    "ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE_IP sudo /usr/bin/ansible-playbook -i /ansible/stage_hosts /ansible/deployment.yml"
+                                    "ssh -o StrictHostKeyChecking=no ec2-user@'"$ANSIBLE_IP"' sudo /usr/bin/ansible-playbook -i /ansible/stage_hosts /ansible/deployment.yml"
                                   ]' \
                                   --output text
                                 '''
@@ -176,11 +176,11 @@ pipeline {
                                 sh '''
                                 aws ssm send-command \
                                   --instance-ids $BASTION_ID \
-                                  --region eu-west-3 \
+                                  --region eu-west-2 \
                                   --document-name "AWS-RunShellScript" \
                                   --comment "Deploy via Bastion to Ansible" \
                                   --parameters 'commands=[
-                                    "ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE_IP sudo /usr/bin/ansible-playbook -i /ansible/prod_hosts /ansible/deployment.yml"
+                                    "ssh -o StrictHostKeyChecking=no ec2-user@'"$ANSIBLE_IP"' sudo /usr/bin/ansible-playbook -i /ansible/prod_hosts /ansible/deployment.yml"
                                   ]' \
                                   --output text
                                 '''

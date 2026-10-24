@@ -56,7 +56,7 @@ pipeline {
             }
             stage('Build Docker Image') {
                 steps {
-                    sh 'docker build -t 3.8.237.189:8085/petclinicapps:latest .'
+                    sh 'docker build -t 3.8.124.131:8085/petclinicapps:latest .'
             }
         }
             stage('Login to Nexus Docker Repo') {
@@ -67,7 +67,7 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
                         sh '''
-                            echo "$DOCKER_PASS" | docker login 3.8.237.189:8085 \
+                            echo "$DOCKER_PASS" | docker login 3.8.124.131:8085 \
                             --username "$DOCKER_USER" --password-stdin
                         '''
                     }
@@ -75,13 +75,13 @@ pipeline {
             } 
             stage('Trivy Image Scan') {
                 steps {
-                    sh 'trivy image --insecure -f table 3.8.237.189:8085/petclinicapps:latest'
+                    sh 'trivy image --insecure -f table 3.8.124.131:8085/petclinicapps:latest'
                 }
             }
     
             stage('Push to Nexus Docker Repo') {
                 steps {
-                    sh 'docker push 3.8.237.189:8085/petclinicapps:latest'
+                    sh 'docker push 3.8.124.131:8085/petclinicapps:latest'
                 }
             }
     
@@ -122,7 +122,7 @@ pipeline {
             stage('check website availability') {
                 steps {
                      sh "sleep 90"
-                     sh "curl -s -o /dev/null -w \"%{http_code}\" https://stage-app.everythingops.io/"
+                     sh "curl -s -o /dev/null -w \"%{http_code}\" https://stage-app.cloudwithliz.space/"
                     script {
                         def response = sh(script: "curl -s -o /dev/null -w \"%{http_code}\" https://stage-app.cloudwithliz.space/", returnStdout: true).trim()
                         if (response == "200") {

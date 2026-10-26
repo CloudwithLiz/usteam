@@ -3,7 +3,7 @@ pipeline {
     stages {
 //        stage('Code Checkout') {
 //            steps {
-//                git branch: 'main',
+//                git branch: 'aug2026',
 //                credentialsId: 'git-cred',
 //                url: 'https://github.com/cloudwithliz/usteam.git'
 //            }
